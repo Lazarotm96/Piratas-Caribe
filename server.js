@@ -64,5 +64,5 @@ app.get('/api/status', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`⚓ Servidor de Piratas del Caribe corriendo en http://localhost:${PORT}`);
+  console.log(`⚓ Servidor de Piratas del Caribe corriendo en https://piratas-caribe-2.onrender.com`);
 });
