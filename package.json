@@ -1,0 +1,16 @@
+{
+  "name": "piratas-del-caribe",
+  "version": "1.0.0",
+  "description": "Juego online de piratas - Paso 2: registro/login + referidos",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "bcryptjs": "^2.4.3",
+    "express": "^4.21.0",
+    "express-session": "^1.18.0"
+  }
+}
