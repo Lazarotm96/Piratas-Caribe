@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Piratas del Caribe</title>
+  <link rel="stylesheet" href="/css/estilo.css" />
+</head>
+<body>
+  <h1>🏴‍☠️ Piratas del Caribe</h1>
+  <p class="subtitulo">Construí tu flota, sube de nivel y combatí a otros piratas</p>
+
+  <div class="card">
+    <p id="estado">Consultando servidor...</p>
+    <a class="link" href="/login.html">Iniciar sesión</a> ·
+    <a class="link" href="/register.html">Registrarse</a>
+  </div>
+
+  <div id="tutorialInicio"></div>
+
+  <script src="/js/tutorial.js"></script>
+  <script>
+    fetch('/api/status')
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('estado').innerHTML =
+          `<span class="ok">✔ Servidor: ${data.servidor}</span>`;
+      })
+      .catch(() => {
+        document.getElementById('estado').innerHTML =
+          '<span class="error">✘ No se pudo conectar al servidor</span>';
+      });
+
+    // Si ya hay sesión activa, mandamos directo al dashboard
+    fetch('/api/auth/me').then(r => {
+      if (r.ok) window.location.href = '/dashboard.html';
+    });
+
+    mostrarTutorial('inicio', document.getElementById('tutorialInicio'), `
+      <h3>📜 Cómo se juega</h3>
+      <p>Sos el capitán de un barco pirata. Registrate con nombre de
+      capitán, email y contraseña, y arrancás con tu propio barco y
+      100 de oro, listo para crecer.</p>
+      <ul>
+        <li><b>🪙 Oro:</b> tu barco produce oro solo, todo el tiempo — incluso
+        offline. Cuanto más alto tu nivel, más rápido produce.</li>
+        <li><b>🎖️ Nivel (1-100):</b> subilo pagando oro. Desde nivel 3 en
+        adelante también necesitás referidos activos (ver abajo). Cada
+        nivel aumenta tu producción y repara tu barco al 100% de HP.</li>
+        <li><b>🚢 Categoría del barco:</b> cada 10 niveles tu barco mejora
+        visualmente — de Balandra a Leviatán de los Mares.</li>
+        <li><b>🧑‍🦱 Referidos:</b> compartí tu link de invitación. Apenas
+        el invitado se registra con tu link, vos ganás +1 pirata y él
+        +100 de oro extra.</li>
+        <li><b>⚔️ PvP:</b> elegís a quién atacar entre los rivales de tu
+        rango de nivel. El ganador le roba oro al perdedor. Hay cooldown
+        entre batallas y no podés pelear si tu HP bajó de 30%.</li>
+        <li><b>🔧 Reparación:</b> arreglar tu barco al 100% cuesta el 10%
+        del HP que te falta, en oro.</li>
+        <li><b>💰 Depósitos y retiros:</b> podés cambiar oro por CUP y
+        viceversa, coordinando el pago por WhatsApp. Todo pasa por
+        aprobación manual antes de acreditarse.</li>
+      </ul>
+      <p>Explorá el resto del juego — cada pantalla tiene su propio
+      tutorial con el botón "❓ Ver tutorial".</p>
+    `);
+  </script>
+</body>
+</html>
